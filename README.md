@@ -80,9 +80,9 @@ End the module.
 
 Program for Endocers and Decoders  and verify its truth table in quartus using Verilog programming.
 
-Developed by: Mukil kumar v
+Developed by: JOEL P
 
-RegisterNumber: 212222230087
+RegisterNumber: 212222230057
 
 # ENCODER
  ```
