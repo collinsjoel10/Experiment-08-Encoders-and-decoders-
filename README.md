@@ -1,36 +1,42 @@
 # Experiment-08- Encoders-and-decoders 
-## AIM: To implement 8 to 3 Encoder and  3to8 Decoder using verilog and validate its outputs
-## HARDWARE REQUIRED:  – PC, Cyclone II , USB flasher
-## SOFTWARE REQUIRED:   Quartus prime
-## THEORY 
+### AIM: To implement 8 to 3 Encoder and  3to8 Decoder using verilog and validate its outputs
+### HARDWARE REQUIRED:  – PC, Cyclone II , USB flasher
+### SOFTWARE REQUIRED:   Quartus prime
+### THEORY 
 
-### Encoders
+## Encoders
 Binary code of N digits can be used to store 2N distinct elements of coded information. This is what encoders and decoders are used for. Encoders convert 2N lines of input into a code of N bits and Decoders decode the N bits into 2N lines.
 
 1. Encoders –
 An encoder is a combinational circuit that converts binary information in the form of a 2N input lines into N output lines, which represent N bit code for the input. For simple encoders, it is assumed that only one input line is active at a time.
+
 As an example, let’s consider Octal to Binary encoder. As shown in the following figure, an octal-to-binary encoder takes 8 input lines and generates 3 output lines.
 
 ![image](https://user-images.githubusercontent.com/36288975/171543588-bc0746df-a173-4b35-989e-5fb7d385fe8a.png)
-#### Figure -01 3 to 8 Encoder 
+## Figure -01 3 to 8 Encoder 
+
 
 Implementation –
+
 X = D4 + D5 + D6 + D7
 Y = D2 +D3 + D6 + D7
 Z = D1 + D3 + D5 + D7 
 Hence, the encoder can be realised with OR gates as follows:
 
-![image](https://user-images.githubusercontent.com/36288975/171543740-68403b82-aa93-4c98-9343-f32b14885a2e.png)
-#### Figure -02 3 to 8 Encoder implenentation 
 
-### Decoders 
+![image](https://user-images.githubusercontent.com/36288975/171543740-68403b82-aa93-4c98-9343-f32b14885a2e.png)
+## Figure -02 3 to 8 Encoder implenentation 
+
+ ### Decoders 
 A decoder does the opposite job of an encoder. It is a combinational circuit that converts n lines of input into 2n lines of output.
 
 Let’s take an example of 3-to-8 line decoder.
 Implementation –
 D0 is high when X = 0, Y = 0 and Z = 0. Hence,
+
 D0 = X’ Y’ Z’ 
 Similarly,
+
 D1 = X’ Y’ Z
 D2 = X’ Y Z’
 D3 = X’ Y Z
@@ -39,82 +45,101 @@ D5 = X Y’ Z
 D6 = X Y Z’
 D7 = X Y Z 
 
+
 ![image](https://user-images.githubusercontent.com/36288975/171543978-ee2d0671-2846-40a1-8705-507fd6287a49.png)
-#### Figure -03 8 to 3 Decoder 
+## Figure -03 8 to 3 Decoder 
+
+
 
 ![image](https://user-images.githubusercontent.com/36288975/171543866-5a6eace6-8683-49d7-9c4f-a7cb30ec3035.png)
-#### Figure -04 8 to 3 Decoder implementation 
+## Figure -04 8 to 3 Decoder implementation 
 
-## Procedure
+### Procedure
 
-Step1:- Open the quartus II software
+Step-1:
 
-Step2:- Create a new project.
+create module encoder and decoder.
 
-Step3:- Name the projects such that the same name is used for mentioning the name of the module.
+Step-2:
 
-Step4:- Develop programmes for both Encoder and Decoder using verilog programming.
+Get inputs and outputs for encoders and decoders.
 
-Step5:- Run RTL Simulation.
+Step-3:
 
-Step6:- Create the Timing diagram.
+perform or operation for encoder and and logic for decoders.
 
-Step7:- Validate the outputs.
+Step-4:
+
+perform RTL LOGIC and get waveform. 
+
+Step-5:
+
+End the module.
 
 ### PROGRAM 
-```
+
 Program for Endocers and Decoders  and verify its truth table in quartus using Verilog programming.
-Developed by: JOEL P
-RegisterNumber: 212222230057
-``` 
-#### ENCODER
-```
-module encoder(a,b,c,d0,d1,d2,d3,d4,d5,d6,d7);
-output a,b,c;
-input d0,d1,d2,d3,d4,d5,d6,d7;
-or(a,d4,d5,d6,d7);
-or(b,d2,d3,d6,d7);
-or(c,d1,d3,d5,d7);
-endmodule
-```
-#### DECODER
-```
-module decoder(d0,d1,d2,d3,d4,d5,d6,d7,a,b,c);
-output d0,d1,d2,d3,d4,d5,d6,d7;
-input a,b,c;
-assign d0 = (~a&~b&~c);
-assign d1 = (~a&~b&c);
-assign d2 = (~a&b&~c);
-assign d3 = (~a&b&c);
-assign d4 = (a&~b&~c);
-assign d5 = (a&~b&c);
-assign d6 = (a&b&~c);
-assign d7 = (a&b&c);
+
+Developed by: Mukil kumar v
+
+RegisterNumber: 212222230087
+
+# ENCODER
+ ```
+module enc(a0,a1,a2,y0,y1,y2,y3,y4,y5,y6,y7);
+input y0,y1,y2,y3,y4,y5,y6,y7;
+output a0,a1,a2;
+or(a0,y7,y5,y3,y1);
+or(a1,y7,y6,y3,y2);
+or(a2,y7,y6,y5,y4);
 endmodule
 ```
 
-## OUTPUT
+# DECODER
+```
+module dec (a0,a1,a2,y0,y1,y2,y3,y4,y5,y6,y7);
+input a0,a1,a2;
+output y0,y1,y2,y3,y4,y5,y6,y7;
+wire a0bar,a1bar,a2bar;
+not(a0bar,a0);
+not(a1bar,a1);
+not(a2bar,a2);
+and(y0,a0bar,a1bar,a2bar);
+and(y1,a0,a1bar,a2bar);
+and(y2,a0bar,a1,a2bar);
+and(y3,a0,a1,a2bar);
+and(y4,a0bar,a1bar,a2);
+and(y5,a0,a1bar,a2);
+and(y6,a0bar,a1,a2);
+and(y7,a0,a1,a2);
+endmodule
+```
 
-### RTL LOGIC  
-#### ENCODER
-![image](https://github.com/Priya-Loganathan/Experiment-08-Encoders-and-decoders-/assets/121166075/0880f35b-44ba-4ea9-b85f-447bb7f51594)
+# RTL LOGIC  
 
-#### DECODER
-![image](https://github.com/Priya-Loganathan/Experiment-08-Encoders-and-decoders-/assets/121166075/d304fc65-18d2-4936-8e80-03e8757fcffc)
+## ENCODER
+![image](https://github.com/shara56/Experiment-08-Encoders-and-decoders-/assets/113497104/805807bc-9a66-401e-8f67-0c8780fa27f9)
 
-### TIMING DIGRAMS  
-#### ENCODER
-![image](https://github.com/Priya-Loganathan/Experiment-08-Encoders-and-decoders-/assets/121166075/78ad210a-384b-4082-9763-276cf9a5f7e3)
+## DECODER
+![image](https://github.com/shara56/Experiment-08-Encoders-and-decoders-/assets/113497104/b1214117-890e-487b-a8e9-aba1a46a78b4)
 
-#### DECODER
-![image](https://github.com/Priya-Loganathan/Experiment-08-Encoders-and-decoders-/assets/121166075/5c3c4415-42d9-412b-aac0-2e4f51b717db)
 
-### TRUTH TABLE 
-####  ENCODER
-![image](https://github.com/Priya-Loganathan/Experiment-08-Encoders-and-decoders-/assets/121166075/58be83d0-e37c-4d46-b4d5-56ee7d5fe512)
+# TIMING DIGRAMS  
 
-#### DECODER
-![image](https://github.com/Priya-Loganathan/Experiment-08-Encoders-and-decoders-/assets/121166075/388869a0-2165-4fbe-9004-a99d96922041)
+## ENCODER
+![image](https://github.com/shara56/Experiment-08-Encoders-and-decoders-/assets/113497104/51c3d5f6-213f-430b-8b91-58f261410b3d)
 
-### RESULTS 
-Implementation of 8 to 3 Encoder and 3 to 8 Decoder is done using verilog and its outputs is validated.
+# DECODER
+![image](https://github.com/shara56/Experiment-08-Encoders-and-decoders-/assets/113497104/ab1225ac-e90b-471f-b280-f8b9e975ecd7)
+
+# TRUTH TABLE 
+
+## ENCODER
+![image](https://github.com/shara56/Experiment-08-Encoders-and-decoders-/assets/113497104/ede61344-0013-49dd-8a70-3931e8bfb41d)
+
+## DECODER
+![image](https://github.com/shara56/Experiment-08-Encoders-and-decoders-/assets/113497104/71dc5f62-9b51-43e9-8255-be61315811af)
+
+# RESULTS 
+
+Thus the program to design encoder and decoder is successfully completed.
